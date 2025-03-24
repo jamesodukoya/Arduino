@@ -94,7 +94,7 @@ void loop() {
   delay(1000); // delay 1000 ms
   lcd.setCursor(0, 1);
   lcd.print("about 10 secs");
-  PORTC = 0b01111111;
+  PORTC = 0b00111111;
   int digit[10] = {0b01101111, 0b01111111, 0b00000111, 0b01111101, 0b01101101, 0b01100110, 0b01001111, 0b01011011, 0b00000110, 0b00111111};
     for (int i=0; i<10; i++){
       PORTA = digit[i];
@@ -119,7 +119,7 @@ void loop() {
   delay(1000);
   lcd.setCursor(0, 1);
   lcd.print("Till satisfied");
-  PORTC = 0b01111111;
+  // PORTC = 0b01111111;
   // int digit[10] = {0b01101111, 0b01111111, 0b00000111, 0b01111101, 0b01101101, 0b01100110, 0b01001111, 0b01011011, 0b00000110, 0b00111111};
     for (int i=0; i<10; i++){
       PORTA = digit[i];

@@ -47,8 +47,8 @@ void loop() {
   time_end_bits = TCNT1; // Set the end time (bit value) equal to the new value of T-Count 1.
   duration_bits = time_end_bits - time_start_bits; // Calculate the signal duration (bit value) as the start minus the stop.
   duration_sec = float(duration_bits)*256.0/16000000.0; // Convert bit value into the signal duration in seconds.
-  delay_time = pow(duration_sec * 1000, 3);
-  ang_vel = 3.14/(180*delay_time);
+  delay_time = pow(duration_sec * 1000, 5);
+  ang_vel = 3140/(180*delay_time);
 
   // Logic to control servo motor rotation
   if (increasing) { // check whether to increase rotor angle
@@ -62,10 +62,12 @@ void loop() {
       increasing = true;
     }
   }
-  Servo1.write(angle); // send angle input to servo motor
+  if (duration_sec < 0.00174927113){
+    Servo1.write(angle);
+  } // send angle input to servo motor
   lcd.clear(); // Clears the display
   lcd.print("Angular v is");
   lcd.setCursor(0, 1);
-  lcd.print(String(ang_vel) + String("rad/s"));
-  delay(delay_time);
+  duration_sec < 0.00174927113 ? lcd.print(String(ang_vel) + String("rad/ms")) : lcd.print("0rad/ms");
+  delay(20);
 }
