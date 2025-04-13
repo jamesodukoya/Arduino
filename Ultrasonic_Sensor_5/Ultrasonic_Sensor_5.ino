@@ -16,7 +16,7 @@
 #include <LiquidCrystal.h>
 
 //Initialize the library with the interface pin numbers used.
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+const int rs = 12, en = 13, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 void setup() {
@@ -25,6 +25,8 @@ void setup() {
   DDRL = 0x01; // set PL0 as output for ultrasonic trigger and PL1 as input for ultrasonic echo
   TCCR1A = 0x00; // Set channels A, B, and C to normal port operation and normal wave generation mode.
   TCCR1B = 0b00000100; // Turn off input capture, set wave generation mode to normal, set prescale of 256.
+
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -54,6 +56,8 @@ void loop() {
   // Calculate distance from ultrasonic sensor to nearest object in centimeters.
   // Divide by two since the ultrasonic wave was transmitted and then reflected back.
   proximity = (ultrasonic_speed*duration_sec)/2; //proximity in cm
+
+  Serial.print(String("Proximity: ")+String(proximity) + String("\n"));
 
   // Print the distance to the nearest object to the LCD screen.
   lcd.clear(); //clear LCD screen
